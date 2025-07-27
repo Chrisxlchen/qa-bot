@@ -1,0 +1,36 @@
+# Environment variables
+.env
+
+CLAUDE.md
+
+# Python cache
+**/__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+
+# Virtual environment
+venv/
+env/
+ENV/
+
+# ChromaDB database
+chroma_db/
+
+# Test coverage
+.coverage
+htmlcov/
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Document files (sensitive)
+documents/consulting-agreement.pdf
