@@ -1,0 +1,36 @@
+services:
+  qa-bot-api:
+    image: qa-bot:latest
+    build: .
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./documents:/app/documents
+      - ./chroma_db:/app/chroma_db
+    environment:
+      - CHROMA_PERSIST_DIRECTORY=/app/chroma_db
+      - DOCUMENTS_PATH=/app/documents
+      - EMBEDDING_MODEL_TYPE=${EMBEDDING_MODEL_TYPE}
+      - EMBEDDING_MODEL=${EMBEDDING_MODEL}
+      - LLM_API_KEY=${LLM_API_KEY}
+      - LLM_BASE_URL=${LLM_BASE_URL}
+      - LLM_MODEL=${LLM_MODEL}
+    command: python app.py
+    networks:
+      - qa-bot-network
+
+  qa-bot-streamlit:
+    image: qa-bot:latest
+    ports:
+      - "8501:8501"
+    environment:
+      - API_BASE_URL=http://qa-bot-api:8000
+    command: streamlit run streamlit_app.py --server.address 0.0.0.0 --server.port 8501
+    depends_on:
+      - qa-bot-api
+    networks:
+      - qa-bot-network
+
+networks:
+  qa-bot-network:
+    driver: bridge

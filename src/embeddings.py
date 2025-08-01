@@ -11,7 +11,7 @@ class EmbeddingGenerator:
         
         if model_type == "openai":
             self.model_name = model_name or "text-embedding-ada-002"
-            self.client = openai.OpenAI(api_key=os.getenv("LLM_API_KEY"))
+            self.client = openai.OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
         elif model_type == "deepseek":
             self.model_name = model_name or "deepseek-embedding"
             api_key = os.getenv("LLM_API_KEY")
